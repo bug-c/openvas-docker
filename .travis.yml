@@ -1,8 +1,6 @@
 sudo: required
-
 services:
     - docker
-
-script:
-    - ./ci.sh
+script: 
+    - "./ci.sh"
 
