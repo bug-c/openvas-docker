@@ -36,9 +36,9 @@ RUN mkdir -p /var/run/redis && \
     sed -i 's/GSA_PORT=.*/GSA_PORT=80/' /etc/default/greenbone-security-assistant && \
     sed -i '/^\[ "$MANAGER_PORT" \]/aDAEMONOPTS="$DAEMONOPTS  --http-only"' /etc/init.d/greenbone-security-assistant && \
 	openvas-manage-certs -a > /dev/null && \
-	greenbone-nvt-sync > /dev/null && \
-	greenbone-scapdata-sync > /dev/null && \
-	greenbone-certdata-sync > /dev/null && \
+	greenbone-nvt-sync && \
+	greenbone-scapdata-sync && \
+	greenbone-certdata-sync && \
 	BUILD=true /start && \
     service openvas-scanner stop && \
     service openvas-manager stop && \
