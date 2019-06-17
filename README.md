@@ -1,10 +1,10 @@
 OpenVAS image for Docker
 ==============
 
-[![Travis CI](https://img.shields.io/travis/ctdc/openvas-docker/master.svg)](https://travis-ci.org/ctdc/openvas-docker/branches) 
-[![Docker Pulls](https://img.shields.io/docker/pulls/ctdc/openvas.svg)](https://hub.docker.com/r/ctdc/openvas/) 
-[![Docker Stars](https://img.shields.io/docker/stars/ctdc/openvas.svg)](https://hub.docker.com/r/ctdc/openvas/) 
-[![](https://images.microbadger.com/badges/image/ctdc/openvas.svg)](https://microbadger.com/images/ctdc/openvas "Get your own image badge on microbadger.com")
+[![Travis CI](https://img.shields.io/travis/bug-c/openvas-docker/master.svg)](https://travis-ci.org/bug-c/openvas-docker/branches) 
+[![Docker Pulls](https://img.shields.io/docker/pulls/bug-c/openvas.svg)](https://hub.docker.com/r/bug-c/openvas/) 
+[![Docker Stars](https://img.shields.io/docker/stars/bug-c/openvas.svg)](https://hub.docker.com/r/bug-c/openvas/) 
+[![](https://images.microbadger.com/badges/image/bug-c/openvas.svg)](https://microbadger.com/images/bug-c/openvas "Get your own image badge on microbadger.com")
 
 
 A Docker container for OpenVAS on Ubuntu.  By default, the latest images includes the OpenVAS Base as well as the NVTs and Certs required to run OpenVAS.  
@@ -124,7 +124,7 @@ docker run -d -p 80:80 -e OV_SMTP_HOSTNAME=smtp.example.com -e OV_SMTP_PORT=587 
 Contributing
 ------------
 
-I'm always happy to accept [pull requests](https://github.com/ctdc/openvas-docker/pulls) or [issues](https://github.com/ctdc/openvas-docker/issues).
+I'm always happy to accept [pull requests](https://github.com/bug-c/openvas-docker/pulls) or [issues](https://github.com/bug-c/openvas-docker/issues).
 
 Thanks
 ------
