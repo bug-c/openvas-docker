@@ -8,7 +8,6 @@ COPY start /start
 ENV DEBIAN_FRONTEND=noninteractive \
     OV_PASSWORD=admin
 	
-#End version
 RUN apt-get update && \
     apt-get install software-properties-common \
 	openvas \
