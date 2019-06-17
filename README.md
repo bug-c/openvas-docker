@@ -5,6 +5,7 @@ OpenVAS image for Docker
 [![Docker Pulls](https://img.shields.io/docker/pulls/ctdc/openvas.svg)](https://hub.docker.com/r/ctdc/openvas/) 
 [![Docker Stars](https://img.shields.io/docker/stars/ctdc/openvas.svg)](https://hub.docker.com/r/ctdc/openvas/) 
 [![](https://images.microbadger.com/badges/image/ctdc/openvas.svg)](https://microbadger.com/images/ctdc/openvas "Get your own image badge on microbadger.com")
+[![Docker Build](https://img.shields.io/docker/automated/ctdc/openvas.svg)](https://cloud.docker.com/swarm/ctdc/repository/docker/ctdc/openvas/builds)
 
 
 A Docker container for OpenVAS on Ubuntu.  By default, the latest images includes the OpenVAS Base as well as the NVTs and Certs required to run OpenVAS.  
