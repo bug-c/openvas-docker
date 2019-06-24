@@ -21,7 +21,7 @@ _ADMIN() {
   GVM_ADMIN="$(gvmd --get-users | grep -w admin)"
   if [ -z "${GVM_ADMIN}" ]; then
     gvmd --create-user=admin --role=Admin \
-    && gvmd --user=admin --new-password=admin
+    && gvmd --user=admin --new-password=$OV_PASSWORD
   fi
 }
 

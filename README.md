@@ -8,12 +8,12 @@ OpenVAS image for Docker
 [![Docker Build](https://img.shields.io/docker/automated/ctdc/openvas.svg)](https://cloud.docker.com/swarm/ctdc/repository/docker/ctdc/openvas/builds)
 
 
-A Docker container for OpenVAS on Ubuntu.  By default, the latest images includes the OpenVAS Base as well as the NVTs and Certs required to run OpenVAS.  
+A Docker container for OpenVAS on Debian.
 
 
 | Openvas Version | Tag     | Web UI Port |
 |-----------------|---------|-------------|
-| 9               | latest  | 80          |
+| 9               | latest  | 443         |
 
 
 
@@ -24,7 +24,7 @@ Simply run:
 
 ```
 # latest
-docker run -d -p 80:80 --name openvas ctdc/openvas
+docker run -d -p 443:443 --name openvas ctdc/openvas
 ```
 
 This will grab the container from the docker registry and start it up.  
@@ -50,45 +50,31 @@ To run bash inside the container run:
 docker exec -it openvas bash
 ```
 
-#### Specify DNS Hostname
-By default, the system only allows connections for the hostname "openvas".  To allow access using a custom DNS name, you must use this command:
-
-```
-docker run -d -p 80:80 -e PUBLIC_HOSTNAME=myopenvas.example.org --name openvas ctdc/openvas
-```
 
 #### OpenVAS Manager
 To use OpenVAS Manager, add port `9390` to you docker run command:
 ```
-docker run -d -p 80:80 -p 9390:9390 --name openvas ctdc/openvas
+docker run -d -p 443:443 -p 9390:9390 --name openvas ctdc/openvas
 ```
 
 #### Volume Support
 We now support volumes. Simply mount your data directory to `/var/lib/openvas/mgr/`:
 ```
 mkdir data
-docker run -d -p 80:80 -v $(pwd)/data:/var/lib/openvas/mgr/ --name openvas ctdc/openvas
+docker run -d -p 443:443 -v $(pwd)/data:/var/lib/openvas/mgr/ --name openvas ctdc/openvas
 ```
 Note, your local directory must exist prior to running.
 
 #### Set Admin Password
 The admin password can be changed by specifying a password at runtime using the env variable `OV_PASSWORD`:
 ```
-docker run -d -p 80:80 -e OV_PASSWORD=securepassword41 --name openvas ctdc/openvas
+docker run -d -p 443:443 -e OV_PASSWORD=securepassword41 --name openvas ctdc/openvas
 ```
 #### Update NVTs
 Occasionally you'll need to update NVTs. We update the container about once a week but you can update your container by execing into the container and running a few commands:
 ```
-docker exec -it openvas bash
 ## inside container
-greenbone-nvt-sync
-openvasmd --rebuild --progress
-greenbone-certdata-sync
-greenbone-scapdata-sync
-openvasmd --update --verbose --progress
-
-/etc/init.d/openvas-manager restart
-/etc/init.d/openvas-scanner restart
+/usr/local/bin/greenbone-sync.sh
 ```
 #### Docker compose (experimental)
 

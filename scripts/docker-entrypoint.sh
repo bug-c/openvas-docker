@@ -35,7 +35,7 @@ sleep 10
 
 gvmd -v --listen=0.0.0.0 --port=9390
 
-gsad -v --mlisten=127.0.0.1 --mport=9390 --listen=0.0.0.0
+gsad -v --mlisten=127.0.0.1 --mport=9390 --listen=0.0.0.0 --port 443
 
 /usr/local/bin/greenbone-sync.sh
 /usr/local/bin/greenbone-cron.sh "${ENABLE_CRON}"

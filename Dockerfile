@@ -5,7 +5,14 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 #Install Prerequisites
 RUN apt-get update -y && \
-    apt-get install git zip bzip2 net-tools \
+    apt-get install locales -y && \
+	export LANGUAGE=en_US.UTF-8 && \
+	export LANG=en_US.UTF-8 && \
+	export LC_ALL=en_US.UTF-8 && \
+	locale-gen en_US.UTF-8 && \
+	dpkg-reconfigure locales
+	
+RUN apt-get install git zip bzip2 net-tools \
 			wget rsync curl cron \
 			nmap \
 			gcc cmake gcc-mingw-w64 clang clang-format perl-base \
@@ -30,7 +37,7 @@ RUN apt-get update -y && \
 	
 #Build gvm-libs
 RUN cd /usr/src && \
-	wget https://github.com/greenbone/gvm-libs/archive/v10.0.0.tar.gz && \
+	wget -nv https://github.com/greenbone/gvm-libs/archive/v10.0.0.tar.gz && \
 	tar -zxf v10.0.0.tar.gz && \
 	cd gvm-libs-10.0.0 && \
 	mkdir build && \
@@ -43,7 +50,7 @@ RUN cd /usr/src && \
 
 #Build openvas-smb
 RUN cd /usr/src && \
-	wget https://github.com/greenbone/openvas-smb/archive/v1.0.5.tar.gz && \
+	wget -nv https://github.com/greenbone/openvas-smb/archive/v1.0.5.tar.gz && \
 	tar -zxf v1.0.5.tar.gz && \
 	cd openvas-smb-1.0.5 && \
 	mkdir build && \
@@ -56,7 +63,7 @@ RUN cd /usr/src && \
 
 #Build openvas
 RUN cd /usr/src && \
-	wget https://github.com/greenbone/openvas/archive/v6.0.0.tar.gz && \
+	wget -nv https://github.com/greenbone/openvas/archive/v6.0.0.tar.gz && \
 	tar -zxf v6.0.0.tar.gz && \
 	cd openvas-6.0.0 && \
 	mkdir build && \
@@ -66,7 +73,6 @@ RUN cd /usr/src && \
 	make install && \
 	rm /usr/src/v6.0.0.tar.gz && \
 	rm -rf /usr/src/openvas-6.0.0
-
 COPY ./config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
 COPY ./config/redis.conf /etc/redis.conf
 
@@ -83,7 +89,7 @@ RUN cd /usr/src && \
 
 #Build gvmd
 RUN cd /usr/src && \
-    wget https://github.com/greenbone/gvmd/archive/v8.0.0.tar.gz && \
+    wget -nv https://github.com/greenbone/gvmd/archive/v8.0.0.tar.gz && \
 	tar -zxf v8.0.0.tar.gz && \
 	cd gvmd-8.0.0 && \
 	mkdir build && \
@@ -110,56 +116,13 @@ RUN cd /usr/src && \
 	python3 setup.py install && \
 	rm -rf /usr/src/ospd-openvas
 
-# ssmtp
-
-#https://github.com/greenbone/gvm-libs/archive/v10.0.0.tar.gz
-#COPY config/redis.config /etc/redis/redis.config
-# COPY config/openvassd.conf /etc/openvas/openvassd.conf
-#COPY openvas-check-setup /openvas-check-setup
-#COPY start /start
-
 COPY ./scripts/greenbone-*.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/greenbone-*.sh
+
+RUN /usr/local/bin/greenbone-sync.sh
 
 COPY ./scripts/docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
-VOLUME ["/usr/local/var/lib/openvas", "/usr/local/var/lib/gvm"]
 EXPOSE 80 443 9390 9391 9392
-
-
-
-
-
-
-
-
-
-
-
-
-#RUN mkdir -p /var/run/redis && \
-	#chmod +x /start && \
-    #chmod +x /openvas-check-setup 
-	#&& \
-	# sed -i 's/MANAGER_ADDRESS=127.0.0.1/MANAGER_ADDRESS=0.0.0.0/' /etc/default/openvas-manager && \
-    # sed -i 's/SCANNER_SOCKET=.*/SCANNER_SOCKET=\/var\/run\/openvassd.sock/' /etc/default/openvas-scanner && \
-    # sed -i 's/GSA_ADDRESS=127.0.0.1/GSA_ADDRESS=0.0.0.0/' /etc/default/greenbone-security-assistant && \
-    # sed -i 's/GSA_PORT=.*/GSA_PORT=80/' /etc/default/greenbone-security-assistant && \
-    # sed -i '/^\[ "$MANAGER_PORT" \]/aDAEMONOPTS="$DAEMONOPTS  --http-only"' /etc/init.d/greenbone-security-assistant && \
-	# openvas-manage-certs -a > /dev/null && \
-	# greenbone-nvt-sync && \
-	# greenbone-scapdata-sync && \
-	# greenbone-certdata-sync && \
-	# BUILD=true /start && \
-    # service openvas-scanner stop && \
-#    service openvas-manager stop && \
-#    service greenbone-security-assistant stop && \
-#    service redis-server stop
-	
-#ENV BUILD=""
-
-#CMD /start
-
-#EXPOSE 80 9390
