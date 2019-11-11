@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [gsa-8.0.0] - 2019-06-24
+## [8.0.0] - 2019-06-24
 
-Packaged versions:
+### Packaged versions
 - gsa v8.0.0
 - gvmd v8.0.0
 - gvm-libs v10.0.0
