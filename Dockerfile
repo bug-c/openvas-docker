@@ -1,18 +1,19 @@
-FROM debian:stretch
+FROM debian:buster
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OV_PASSWORD=admin
 
 #Install Prerequisites
 RUN apt-get update -y && \
-    apt-get install locales -y && \
+    apt-get install -y apt-utils locales && \
     export LANGUAGE=en_US.UTF-8 && \
     export LANG=en_US.UTF-8 && \
     export LC_ALL=en_US.UTF-8 && \
     locale-gen en_US.UTF-8 && \
     dpkg-reconfigure locales
 
-RUN apt-get install git zip bzip2 net-tools \
+RUN apt-get install --assume-yes --quiet --no-install-recommends --fix-missing \
+            git zip bzip2 net-tools \
             wget rsync curl cron \
             nmap \
             gcc cmake gcc-mingw-w64 clang clang-format perl-base \
@@ -23,8 +24,7 @@ RUN apt-get install git zip bzip2 net-tools \
             heimdal-dev libpopt-dev libxml2-dev libical-dev gnutls-bin xsltproc python3-lxml \
             python-impacket python-polib python3-setuptools python-defusedxml python3-paramiko python3-redis python3-dev \
             texlive-latex-base xmlstarlet nsis gnupg snmp smbclient \
-            sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat \
-            --no-install-recommends --fix-missing -yq && \
+            sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat && \
     curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -  && \
@@ -104,20 +104,21 @@ RUN cd /usr/src && \
 
 #Build ospd
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/ospd/archive/v1.3.2.tar.gz && \
-    tar -zxf v1.3.2.tar.gz && \
-    cd ospd-1.3.2 && \
+    wget -nv https://github.com/greenbone/ospd/archive/v2.0.0.tar.gz && \
+    tar -zxf v2.0.0.tar.gz && \
+    cd ospd-2.0.0 && \
     python3 setup.py install && \
-    rm /usr/src/v1.3.2.tar.gz && \
-    rm -rf /usr/src/ospd-1.3.2
+    rm /usr/src/v2.0.0.tar.gz && \
+    rm -rf /usr/src/ospd-2.0.0
 
 #Build ospd-openvas
 RUN cd /usr/src && \
-    git clone https://github.com/greenbone/ospd-openvas.git && \
-    cd ospd-openvas && \
-    git checkout "3f6d407b1b81c1b8b2d9482847270d74784a3928" && \
+    wget -nv https://github.com/greenbone/ospd-openvas/archive/v1.0.0.tar.gz && \
+    tar -zxf v1.0.0.tar.gz && \
+    cd ospd-openvas-1.0.0 && \
     python3 setup.py install && \
-    rm -rf /usr/src/ospd-openvas
+    rm /usr/src/v1.0.0.tar.gz && \
+    rm -rf /usr/src/ospd-openvas-1.0.0
 
 COPY ./scripts/greenbone-*.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/greenbone-*.sh
