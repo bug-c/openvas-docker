@@ -11,7 +11,7 @@ RUN apt-get update -y && \
 	export LC_ALL=en_US.UTF-8 && \
 	locale-gen en_US.UTF-8 && \
 	dpkg-reconfigure locales
-	
+
 RUN apt-get install git zip bzip2 net-tools \
 			wget rsync curl cron \
 			nmap \
@@ -34,7 +34,7 @@ RUN apt-get install git zip bzip2 net-tools \
 	apt autoremove -y && \
 	rm -rf /var/lib/apt/lists/*
 
-	
+
 #Build gvm-libs
 RUN cd /usr/src && \
 	wget -nv https://github.com/greenbone/gvm-libs/archive/v10.0.0.tar.gz && \
@@ -46,7 +46,7 @@ RUN cd /usr/src && \
 	make && \
 	make install && \
 	rm /usr/src/v10.0.0.tar.gz && \
-	rm -rf /usr/src/gvm-libs-10.0.0	
+	rm -rf /usr/src/gvm-libs-10.0.0
 
 #Build openvas-smb
 RUN cd /usr/src && \
@@ -104,7 +104,7 @@ RUN cd /usr/src && \
 RUN cd /usr/src && \
     git clone https://github.com/greenbone/ospd.git && \
 	cd ospd && \
-	git checkout "36027d4c3a74c8bdec2cc49410b3fd0fa4b746c3" && \	
+	git checkout "36027d4c3a74c8bdec2cc49410b3fd0fa4b746c3" && \
 	python3 setup.py install && \
 	rm -rf /usr/src/ospd
 
