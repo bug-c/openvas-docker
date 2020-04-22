@@ -37,16 +37,16 @@ RUN apt-get install git zip bzip2 net-tools \
 
 #Build gvm-libs
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/gvm-libs/archive/v10.0.0.tar.gz && \
-    tar -zxf v10.0.0.tar.gz && \
-    cd gvm-libs-10.0.0 && \
+    wget -nv https://github.com/greenbone/gvm-libs/archive/v10.0.1.tar.gz && \
+    tar -zxf v10.0.1.tar.gz && \
+    cd gvm-libs-10.0.1 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v10.0.0.tar.gz && \
-    rm -rf /usr/src/gvm-libs-10.0.0
+    rm /usr/src/v10.0.1.tar.gz && \
+    rm -rf /usr/src/gvm-libs-10.0.1
 
 #Build openvas-smb
 RUN cd /usr/src && \
@@ -63,50 +63,53 @@ RUN cd /usr/src && \
 
 #Build openvas
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/openvas/archive/v6.0.0.tar.gz && \
-    tar -zxf v6.0.0.tar.gz && \
-    cd openvas-6.0.0 && \
+    wget -nv https://github.com/greenbone/openvas/archive/v6.0.1.tar.gz && \
+    tar -zxf v6.0.1.tar.gz && \
+    cd openvas-6.0.1 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v6.0.0.tar.gz && \
-    rm -rf /usr/src/openvas-6.0.0
+    rm /usr/src/v6.0.1.tar.gz && \
+    rm -rf /usr/src/openvas-6.0.1
 COPY ./config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
 COPY ./config/redis.conf /etc/redis.conf
 
 #Build gsa
 RUN cd /usr/src && \
-    git clone -b gsa-8.0 https://github.com/greenbone/gsa.git && \
-    cd gsa && \
+    wget -nv https://github.com/greenbone/gsa/archive/v8.0.1.tar.gz && \
+    tar -zxf v8.0.1.tar.gz && \
+    cd gsa-8.0.1 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm -rf /usr/src/gsa
+    rm /usr/src/v8.0.1.tar.gz && \
+    rm -rf /usr/src/gsa-8.0.1
 
 #Build gvmd
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/gvmd/archive/v8.0.0.tar.gz && \
-    tar -zxf v8.0.0.tar.gz && \
-    cd gvmd-8.0.0 && \
+    wget -nv https://github.com/greenbone/gvmd/archive/v8.0.1.tar.gz && \
+    tar -zxf v8.0.1.tar.gz && \
+    cd gvmd-8.0.1 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v8.0.0.tar.gz && \
-    rm -rf /usr/src/gvmd-8.0.0
+    rm /usr/src/v8.0.1.tar.gz && \
+    rm -rf /usr/src/gvmd-8.0.1
 
 #Build ospd
 RUN cd /usr/src && \
-    git clone https://github.com/greenbone/ospd.git && \
-    cd ospd && \
-    git checkout "36027d4c3a74c8bdec2cc49410b3fd0fa4b746c3" && \
+    wget -nv https://github.com/greenbone/ospd/archive/v1.3.2.tar.gz && \
+    tar -zxf v1.3.2.tar.gz && \
+    cd ospd-1.3.2 && \
     python3 setup.py install && \
-    rm -rf /usr/src/ospd
+    rm /usr/src/v1.3.2.tar.gz && \
+    rm -rf /usr/src/ospd-1.3.2
 
 #Build ospd-openvas
 RUN cd /usr/src && \
