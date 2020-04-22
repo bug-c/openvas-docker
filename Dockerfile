@@ -13,18 +13,18 @@ RUN apt-get update -y && \
     dpkg-reconfigure locales
 
 RUN apt-get install --assume-yes --quiet --no-install-recommends --fix-missing \
-            git zip bzip2 net-tools \
-            wget rsync curl cron \
-            nmap \
-            gcc cmake gcc-mingw-w64 clang clang-format perl-base \
-            pkg-config libssh-gcrypt-dev libgnutls28-dev libglib2.0-dev uuid-dev libldap2-dev \
-            libpcap-dev libgpgme-dev bison flex libksba-dev libsnmp-dev libgcrypt20-dev \
-            redis-server redis-tools libhiredis-dev libmicrohttpd-dev gettext \
-            doxygen xmltoman libfreeradius-dev apt-transport-https haveged \
-            heimdal-dev libpopt-dev libxml2-dev libical-dev gnutls-bin xsltproc python3-lxml \
-            python-impacket python-polib python3-setuptools python-defusedxml python3-paramiko python3-redis python3-dev \
-            texlive-latex-base xmlstarlet nsis gnupg snmp smbclient \
-            sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat && \
+        git zip bzip2 net-tools \
+        wget rsync curl cron \
+        nmap \
+        gcc cmake gcc-mingw-w64 clang clang-format perl-base \
+        pkg-config libssh-gcrypt-dev libgnutls28-dev libglib2.0-dev uuid-dev libldap2-dev \
+        libpcap-dev libgpgme-dev bison flex libksba-dev libsnmp-dev libgcrypt20-dev \
+        redis-server redis-tools libhiredis-dev libmicrohttpd-dev gettext \
+        doxygen xmltoman libfreeradius-dev apt-transport-https haveged \
+        heimdal-dev libpopt-dev libxml2-dev libical-dev gnutls-bin xsltproc python3-lxml \
+        python-impacket python-polib python3-setuptools python-defusedxml python3-paramiko python3-redis python3-dev \
+        texlive-latex-base xmlstarlet nsis gnupg snmp smbclient \
+        sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat && \
     curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -  && \
