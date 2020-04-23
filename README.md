@@ -58,10 +58,10 @@ docker run -d -p 443:443 -p 9390:9390 --name openvas ctdc/openvas
 ```
 
 #### Volume Support
-We now support volumes. Simply mount your data directory to `/var/lib/openvas/mgr/`:
+We now support volumes. Simply mount your data directory to `/usr/local/var/lib/gvm/`:
 ```
 mkdir data
-docker run -d -p 443:443 -v $(pwd)/data:/var/lib/openvas/mgr/ --name openvas ctdc/openvas
+docker run -d -p 443:443 -v $(pwd)/data:/usr/local/var/lib/gvm/ --name openvas ctdc/openvas
 ```
 Note, your local directory must exist prior to running.
 

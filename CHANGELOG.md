@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 10.0.1 - 2020-04-23
+
+### Changed
+- Reversioning based on how Greenbone versions their releases (using gvm-libs)
+- Now built on Debian 10 Buster
+
+### Fixed
+- Should fix the SIGSEGV fault happening in openvasd sometimes (greenbone/openvas#336)
+
+### Packaged versions
+- gsa [v8.0.1](https://github.com/greenbone/gsa/releases/tag/v8.0.1)
+- gvmd [v8.0.1](https://github.com/greenbone/gvmd/releases/tag/v8.0.1)
+- gvm-libs [v10.0.1](https://github.com/greenbone/gvm-libs/releases/tag/v10.0.1)
+- openvas-smb [v1.0.5](https://github.com/greenbone/openvas-smb/releases/tag/v1.0.5)
+- openvas [v6.0.1](https://github.com/greenbone/openvas/releases/tag/v6.0.1)
+- ospd [v2.0.0](https://github.com/greenbone/ospd/releases/tag/v2.0.0)
+- ospd-openvas [v1.0.0](https://github.com/greenbone/ospd-openvas/releases/tag/v1.0.0)
+
 ## 8.0.0 - 2019-06-24
 
 ### Packaged versions
