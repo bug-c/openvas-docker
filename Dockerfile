@@ -1,3 +1,5 @@
+FROM openvas
+
 FROM debian:stretch
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -19,10 +21,11 @@ RUN apt-get install git zip bzip2 net-tools \
             pkg-config libssh-gcrypt-dev libgnutls28-dev libglib2.0-dev uuid-dev libldap2-dev \
             libpcap-dev libgpgme-dev bison flex libksba-dev libsnmp-dev libgcrypt20-dev \
             redis-server redis-tools libhiredis-dev libmicrohttpd-dev gettext \
-            doxygen xmltoman libfreeradius-dev apt-transport-https haveged \
-            heimdal-dev libpopt-dev libxml2-dev libical-dev gnutls-bin xsltproc python3-lxml \
-            python-impacket python-polib python3-setuptools python-defusedxml python3-paramiko python3-redis python3-dev \
-            texlive-latex-base xmlstarlet nsis gnupg snmp smbclient \
+            doxygen xmltoman libfreeradius-dev apt-transport-https haveged libssl-dev \
+            heimdal-dev libpopt-dev libxml2 libxml2-dev libxslt1.1 libxslt-dev libical-dev gnutls-bin xsltproc python3-lxml python3-wheel \
+            python-impacket python-polib python3-setuptools python3-defusedxml python3-paramiko python3-redis python3-dev python3-pycparser  \
+            libffi6 libffi-dev \
+            texlive-latex-base texlive-latex-extra xmlstarlet nsis gnupg snmp smbclient \
             sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat \
             --no-install-recommends --fix-missing -yq && \
     curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  && \
@@ -37,16 +40,16 @@ RUN apt-get install git zip bzip2 net-tools \
     
 #Build gvm-libs
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/gvm-libs/archive/v10.0.1.tar.gz && \
-    tar -zxf v10.0.1.tar.gz && \
-    cd gvm-libs-10.0.1 && \
+    wget -nv https://github.com/greenbone/gvm-libs/archive/v10.0.2.tar.gz && \
+    tar -zxf v10.0.2.tar.gz && \
+    cd gvm-libs-10.0.2 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v10.0.1.tar.gz && \
-    rm -rf /usr/src/gvm-libs-10.0.1
+    rm /usr/src/v10.0.2.tar.gz && \
+    rm -rf /usr/src/gvm-libs-10.0.2
 
 #Build openvas-smb
 RUN cd /usr/src && \
@@ -63,62 +66,62 @@ RUN cd /usr/src && \
 
 #Build openvas
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/openvas/archive/v6.0.1.tar.gz && \
-    tar -zxf v6.0.1.tar.gz && \
-    cd openvas-6.0.1 && \
+    wget -nv https://github.com/greenbone/openvas/archive/v6.0.2.tar.gz && \
+    tar -zxf v6.0.2.tar.gz && \
+    cd openvas-6.0.2 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v6.0.1.tar.gz && \
-    rm -rf /usr/src/openvas-6.0.1
+    rm /usr/src/v6.0.2.tar.gz && \
+    rm -rf /usr/src/openvas-6.0.2
 COPY ./config/openvassd.conf /usr/local/etc/openvas/openvassd.conf
 COPY ./config/redis.conf /etc/redis.conf
 
 #Build gsa
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/gsa/archive/v8.0.1.tar.gz && \
-    tar -zxf v8.0.1.tar.gz && \
-    cd gsa-8.0.1 && \
+    wget -nv https://github.com/greenbone/gsa/archive/v8.0.2.tar.gz && \
+    tar -zxf v8.0.2.tar.gz && \
+    cd gsa-8.0.2 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v8.0.1.tar.gz && \
-    rm -rf /usr/src/gsa-8.0.1
+    rm /usr/src/v8.0.2.tar.gz && \
+    rm -rf /usr/src/gsa-8.0.2
 
 #Build gvmd
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/gvmd/archive/v8.0.1.tar.gz && \
-    tar -zxf v8.0.1.tar.gz && \
-    cd gvmd-8.0.1 && \
+    wget -nv https://github.com/greenbone/gvmd/archive/v8.0.2.tar.gz && \
+    tar -zxf v8.0.2.tar.gz && \
+    cd gvmd-8.0.2 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    rm /usr/src/v8.0.1.tar.gz && \
-    rm -rf /usr/src/gvmd-8.0.1
+    rm /usr/src/v8.0.2.tar.gz && \
+    rm -rf /usr/src/gvmd-8.0.2
 
 #Build ospd
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/ospd/archive/v2.0.0.tar.gz && \
-    tar -zxf v2.0.0.tar.gz && \
-    cd ospd-2.0.0 && \
+    wget -nv https://github.com/greenbone/ospd/archive/v1.3.2.tar.gz && \
+    tar -zxf v1.3.2.tar.gz && \
+    cd ospd-1.3.2 && \
     python3 setup.py install && \
-    rm /usr/src/v2.0.0.tar.gz && \
-    rm -rf /usr/src/ospd-2.0.0
+    rm /usr/src/v1.3.2.tar.gz && \
+    rm -rf /usr/src/ospd-1.3.2
 
 #Build ospd-openvas
 RUN cd /usr/src && \
-    wget -nv https://github.com/greenbone/ospd-openvas/archive/v1.0.0.tar.gz && \
-    tar -zxf v1.0.0.tar.gz && \
-    cd ospd-openvas-1.0.0 && \
+    wget -nv https://github.com/greenbone/ospd-openvas/archive/v1.0.1.tar.gz && \
+    tar -zxf v1.0.1.tar.gz && \
+    cd ospd-openvas-1.0.1 && \
     python3 setup.py install && \
-    rm /usr/src/v1.0.0.tar.gz && \
-    rm -rf /usr/src/ospd-openvas-1.0.0
+    rm /usr/src/v1.0.1.tar.gz && \
+    rm -rf /usr/src/ospd-openvas-1.0.1
 
 COPY ./scripts/greenbone-*.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/greenbone-*.sh
