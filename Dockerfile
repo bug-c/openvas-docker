@@ -1,5 +1,3 @@
-FROM openvas
-
 FROM debian:stretch
 
 ENV DEBIAN_FRONTEND=noninteractive \
