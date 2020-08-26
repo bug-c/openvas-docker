@@ -2,4 +2,4 @@ sudo: required
 services:
     - docker
 script: 
-    -  chmod +x ci.sh && ./ci.sh
+    -  chmod +x ci.sh && chmod +x test.sh && ./ci.sh
