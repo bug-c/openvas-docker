@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Versions are based on Greenbone Source Edition [GSE](https://community.greenbone.net/t/about-the-greenbone-source-edition-gse-category/176)
 
-## 10 - 2020-08-26
+## 10.0.0 - 2020-08-26
 
 ### Packaged versions for [GVM-10](https://community.greenbone.net/t/gvm-10-old-old-stable-initial-release-2019-04-05/208)
 - gsa [v8.0.2](https://github.com/greenbone/gsa/releases/tag/v8.0.2)
