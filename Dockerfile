@@ -1,19 +1,13 @@
 FROM debian:stretch
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    OV_PASSWORD=admin
+    OV_PASSWORD=admin \
+    PUBLIC_HOSTNAME=openvas
 
 #Install Prerequisites
-RUN apt-get update -y && \
-    apt-get install locales -y && \
-    export LANGUAGE=en_US.UTF-8 && \
-    export LANG=en_US.UTF-8 && \
-    export LC_ALL=en_US.UTF-8 && \
-    locale-gen en_US.UTF-8 && \
-    dpkg-reconfigure locales
-    
-RUN apt-get install git zip bzip2 net-tools \
-            wget rsync curl cron \
+RUN apt-get update && \
+    apt-get install --assume-yes --quiet --no-install-recommends --fix-missing \
+            apt-utils locales zip bzip2 net-tools wget rsync curl cron \
             nmap \
             gcc cmake gcc-mingw-w64 clang clang-format perl-base \
             pkg-config libssh-gcrypt-dev libgnutls28-dev libglib2.0-dev uuid-dev libldap2-dev \
@@ -21,17 +15,17 @@ RUN apt-get install git zip bzip2 net-tools \
             redis-server redis-tools libhiredis-dev libmicrohttpd-dev gettext \
             doxygen xmltoman libfreeradius-dev apt-transport-https haveged libssl-dev \
             heimdal-dev libpopt-dev libxml2 libxml2-dev libxslt1.1 libxslt-dev libical-dev gnutls-bin xsltproc python3-lxml python3-wheel \
-            python-impacket python-polib python3-setuptools python3-defusedxml python3-paramiko python3-redis python3-dev python3-pycparser  \
+            python-impacket python3-polib python3-setuptools python3-defusedxml python3-paramiko python3-redis python3-dev \
+            python3-pycparser python3-pyparsing python3-packaging python3-redis \
             libffi6 libffi-dev \
             texlive-latex-base texlive-latex-extra xmlstarlet nsis gnupg snmp smbclient \
-            sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat \
-            --no-install-recommends --fix-missing -yq && \
+            sqlfairy libsqlite3-dev libpq-dev fakeroot sshpass socat && \
     curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl --silent --show-error https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -  && \
     echo "deb https://deb.nodesource.com/node_8.x stretch main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    apt update -y && \
-    apt-get install nodejs yarn --no-install-recommends --fix-missing -yq && \
+    apt-get update -y && \
+    apt-get install nodejs yarn --assume-yes --quiet --no-install-recommends --fix-missing && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
