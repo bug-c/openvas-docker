@@ -118,6 +118,11 @@ RUN cd /usr/src && \
 COPY ./scripts/greenbone-*.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/greenbone-*.sh
 
+COPY ./feeds/community-nvt-feed-current.tar.bz2 /usr/src/
+RUN cd /usr/src && \
+    tar -xC /usr/local/var/lib/openvas/plugins/ -f community-nvt-feed-current.tar.bz2 && \
+    rm community-nvt-feed-current.tar.bz2
+
 RUN /usr/local/bin/greenbone-sync.sh
 
 COPY ./scripts/docker-entrypoint.sh /usr/local/bin
