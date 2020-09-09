@@ -5,7 +5,7 @@ echo "Setup"
 cd $(dirname $0)
 mkdir -p logs images
 
-docker build -t openvas .
+docker build --build-arg SKIP_SYNC=true -t openvas .
 
 ./test.sh
 

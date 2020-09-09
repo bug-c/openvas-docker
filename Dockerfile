@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     OV_PASSWORD=admin \
     PUBLIC_HOSTNAME=openvas
 
+ARG SKIP_SYNC=false
+
 #Install Prerequisites
 RUN apt-get update && \
     apt-get install --assume-yes --quiet --no-install-recommends --fix-missing \
@@ -118,10 +120,10 @@ RUN cd /usr/src && \
 COPY ./scripts/greenbone-*.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/greenbone-*.sh
 
-COPY ./feeds/community-nvt-feed-current.tar.bz2 /usr/src/
-RUN cd /usr/src && \
-    tar -xC /usr/local/var/lib/openvas/plugins/ -f community-nvt-feed-current.tar.bz2 && \
-    rm community-nvt-feed-current.tar.bz2
+#COPY ./feeds/community-nvt-feed-current.tar.bz2 /usr/src/
+#RUN cd /usr/src && \
+#    tar -xC /usr/local/var/lib/openvas/plugins/ -f community-nvt-feed-current.tar.bz2 && \
+#    rm community-nvt-feed-current.tar.bz2
 
 RUN /usr/local/bin/greenbone-sync.sh
 
