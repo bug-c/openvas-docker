@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-if [ "$(ls -A /usr/local/var/lib/openvas/plugins)" ]; then
-  greenbone-nvt-sync --rsync
-else
-  greenbone-nvt-sync --wget
+if [ "$SKIP_SYNC" == "false"  ]; then
+    greenbone-nvt-sync --rsync
+    sleep 15
+    greenbone-certdata-sync
+    sleep 15
+    greenbone-scapdata-sync
 fi
-sleep 15
-greenbone-certdata-sync
-sleep 15
-greenbone-scapdata-sync
